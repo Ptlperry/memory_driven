@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-
 using namespace std;
 
 class Employee
@@ -24,139 +22,126 @@ public:
     void getSalary()
     {
         calculate();
-        cout << "HRA:" << HRA << endl;
-        cout << "DA:" << DA << endl;
-        cout << "TA:" << TA << endl;
-        cout << "PF:" << PF << endl;
-        cout << "PT:" << PT << endl;
-        cout << "Net salary:" << Net_Salary << endl;
+        cout << "HRA: " << HRA << endl;
+        cout << "DA: " << DA << endl;
+        cout << "TA: " << TA << endl;
+        cout << "PF: " << PF << endl;
+        cout << "PT: " << PT << endl;
+        cout << "Net salary: " << Net_Salary << endl;
     }
-
- 
-    vector<Employee> EmployeeList;
 
     void addEmployee()
     {
-
-        Employee n_employee;
-        cout << "Enter employee ID: ";
-        cin >> n_employee.empid;
+        cout << "Enter employee id: ";
+        cin >> empid;
 
         cout << "Enter employee name: ";
-        cin >>n_employee.empname;
+        cin >> empname;
 
         cout << "Enter employee age: ";
-        cin >>n_employee.empage;
+        cin >> empage;
 
         cout << "Enter employee department: ";
-        cin >> n_employee.department;
+        cin >> department;
 
         cout << "Enter employee salary: ";
-        cin >>n_employee.salary;
+        cin >> salary;
 
-        EmployeeList.push_back(n_employee);
-        cout << "Employee added successfully!" << endl;
+        cout << "Enter employee attendance: ";
+        cin >> attendance;
+
+        cout << "Employee added successfully!!" << endl;
     }
 
     void MarkAttendance()
     {
         int id;
-        cout << "Enter employee ID: ";
+        cout << "Enter employee id: ";
         cin >> id;
 
-        for (int i = 0; i < EmployeeList.size(); i++)
+        if (id == empid)
         {
-            if (EmployeeList[i].empid == id)
-            {
-                cout << "Enter employee attendance: ";
-                cin >> EmployeeList[i].attendance;
-                cout << "Attendance marked successfully!" << endl;
-                return;
-            }
+            cout << "Enter employee attendance: ";
+            cin >> attendance;
+
+            cout << "Attendance marked successfully!!" << endl;
         }
-        cout << "Employee not found!" << endl;
+        else
+        {
+            cout << "Employee id not found!" << endl;
+        }
     }
 
     void calculateSalary()
     {
         int id;
-        cout << "Enter employee ID: ";
+        cout << "Enter employee id: ";
         cin >> id;
 
-        for (int i = 0; i < EmployeeList.size(); i++)
+        if (id == empid)
         {
-            if (EmployeeList[i].empid == id)
-            {
-                EmployeeList[i].getSalary();
-                return;
-            }
+            cout << "Employee id: " << empid << endl;
+            getSalary();
         }
-        cout << "Employee not found!" << endl;
+        else
+        {
+            cout << "Employee id not found!!" << endl;
+        }
     }
 
-    void applyIncrement(float percentage)
+    void applyIncrement()
     {
+        int id;
+        float increment;
+        cout << "Enter employee id: ";
+        cin >> id;
 
-        cout << "Enter employee id:" ;
-        cin >> empid;
+        if (id == empid)
+        {
+            cout << "Enter increment amount: ";
+            cin >> increment;
 
-        cout << "Enter employee salary:";
-        cin >> salary;
+            salary += increment;
 
-        cout << "Enter employee bonus:";
-        cin >> bonus;
-
-        cout << "Enter increment precentage:";
-        cin >> percentage;
-
-        float increment = (percentage / 100) * salary;
-
-        float TotalSalary = salary + bonus + increment;
-        cout << "Total salary is:" << TotalSalary << endl;
-
-        cout << "Increment applied!!" << endl;
+            cout << "Salary increment successfully!!" << endl;
+        }
+        else
+        {
+            cout << "Employee id not found!!" << endl;
+        }
     }
 
     void grantBonus()
     {
         int id;
-        cout << "Enter employee ID: ";
+        cout << "Enter employee id: ";
         cin >> id;
-
-        for (int i = 0; i < EmployeeList.size(); i++)
+        if (id == empid)
         {
-            if (EmployeeList[i].empid == id)
-            {
-                cout << "Enter bonus amount: ";
-                cin >> EmployeeList[i].bonus;
-                cout << "Bonus granted successfully!" << endl;
-                return;
-            }
+            cout << "Enter bonus amount: ";
+            cin >> bonus;
+
+            salary += bonus;
+            cout << "Bonus granted successfully!!" << endl;
         }
-        cout << "Employee not found!" << endl;
+        else
+        {
+            cout << "Employee id not found!!" << endl;
+        }
     }
 
     void displayEmployee()
     {
-        if (EmployeeList.empty())
-        {
-            cout << "No employees found!" << endl;
-            return;
-        }
-
-        for (int i = 0; i < EmployeeList.size(); i++)
-        {
-            cout << "Employee ID: " << EmployeeList[i].empid << endl;
-            cout << "Name: " << EmployeeList[i].empname << endl;
-            cout << "Age: " << EmployeeList[i].empage << endl;
-            cout << "Department: " << EmployeeList[i].department << endl;
-            cout << "Salary: " << EmployeeList[i].salary << endl;
-            cout << "Bonus: " << EmployeeList[i].bonus << endl;
-            cout << "Attendance: " << EmployeeList[i].attendance << endl;
-        
-        }
-}
+        cout << "Employee id: " << empid << endl;
+        cout << "Employee name: " << empname << endl;
+        cout << "Employee age: " << empage << endl;
+        cout << "Employee department: " << department << endl;
+        cout << "Employee salary: " << salary << endl;
+        cout << "Employee attendance: " << attendance << endl;
+        cout << "Employee bonus:" << bonus << endl;
+    }
 };
+
 int main()
 {
 
@@ -192,11 +177,9 @@ int main()
         case 3:
             emp.calculateSalary();
             break;
-
         case 4:
-            emp.applyIncrement(0);
+            emp.applyIncrement();
             break;
-
         case 5:
             emp.grantBonus();
             break;
@@ -205,11 +188,9 @@ int main()
             emp.displayEmployee();
             break;
         case 7:
-            cout << "Exiting...";
+            cout << "Exiting..!!" << endl;
             break;
         }
     } while (choice != 7);
-
     return 0;
 }
-
